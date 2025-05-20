@@ -1,0 +1,8 @@
+description: BLE standard GATT services support
+issues: https://github.com/espressif/esp-iot-solution/issues
+repository: git://github.com/espressif/esp-iot-solution.git
+repository_info:
+  commit_sha: 5ebc23ca9d93ba881a1bef6476d15b250937e3b1
+  path: components/bluetooth/ble_services
+url: https://github.com/espressif/esp-iot-solution/tree/master/components/bluetooth/ble_services
+version: 1.0.0

@@ -1,0 +1,18 @@
+dependencies:
+  espressif/ble_services:
+    component_hash: 18f932ae372b598409441b8a99d8b2ed93015c7c808413eaca2aec93de77fcfa
+    dependencies: []
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 1.0.0
+  idf:
+    source:
+      type: idf
+    version: 5.4.0
+direct_dependencies:
+- espressif/ble_services
+- idf
+manifest_hash: 56a398638052dd951d1288575a909989be818e42b0f904dd395bbe26364365b8
+target: esp32
+version: 2.0.0

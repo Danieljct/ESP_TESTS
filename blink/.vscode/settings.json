@@ -1,0 +1,18 @@
+{
+    "C_Cpp.intelliSenseEngine": "default",
+    "idf.espIdfPathWin": "E:\\esp\\v5.4\\esp-idf",
+    "idf.toolsPathWin": "E:\\.espressif",
+    "idf.pythonInstallPath": "E:\\.espressif\\tools\\idf-python\\3.11.2\\python.exe",
+    "idf.portWin": "COM6",
+    "idf.customExtraVars": {
+        "IDF_TARGET": "esp32s3"
+    },
+    "idf.openOcdConfigs": [
+        "board/esp32-wrover-kit-3.3v.cfg"
+    ],
+    "idf.flashType": "UART",
+    "files.associations": {
+        "*.ino": "arduino-output",
+        "task.h": "c"
+    }
+}
