@@ -6,6 +6,7 @@
 
 #include "DRV2605driver.h" // Incluye tu driver DRV2605
 #include "BLE.h"           // Incluye el módulo BLE que acabamos de adaptar
+#include "signal.h"
 
 static const char *TAG_MAIN = "MAIN";
 
@@ -37,7 +38,9 @@ void app_main(void) {
     // 3. Inicializar el módulo BLE (tu servicio de comandos)
     ble_init();
     ESP_LOGI(TAG_MAIN, "BLE inicializado. Esperando conexión...");
-
+SIGNAL_init(PWM_FREQ);
+SIGNAL_select(SIGNAL_SIN23HZ);
+SIGNAL_start();
     // Bucle principal para procesar comandos BLE
     ble_command_t received_command;
 
