@@ -108,6 +108,18 @@ bool mot_init(void);
  */
 bool writeRegister8(uint8_t reg, uint8_t value);
 
+
+/**
+ * @brief  Read a register from the DRV2605 driver
+ * 
+ * @param reg 
+ * @param value 
+ * @return true 
+ * @return false 
+ */
+bool readRegister8(uint8_t reg, uint8_t *value);
+
+
 /**
  * \brief Set the driver to off status
  *	

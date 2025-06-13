@@ -5,11 +5,11 @@
 #include "freertos/task.h"
 
 #include "DRV2605driver.h" // Incluye tu driver DRV2605
-#include "BLE.h"           // Incluye el módulo BLE que crearemos
+#include "BLE.h"           // Incluye el módulo BLE que acabamos de adaptar
 
 static const char *TAG_MAIN = "MAIN";
 
-// Declaración de la cola de comandos (se define en ble.c)
+// Declaración de la cola de comandos (definida en ble.c)
 extern QueueHandle_t ble_command_queue;
 
 void app_main(void) {
@@ -26,6 +26,7 @@ void app_main(void) {
     ESP_LOGI(TAG_MAIN, "NVS inicializado.");
 
     // 2. Inicializar el driver DRV2605
+    // Asegúrate de que mot_init() no dependa de BLE para su inicialización
     if (mot_init()) {
         ESP_LOGI(TAG_MAIN, "DRV2605 inicializado correctamente.");
     } else {
@@ -33,7 +34,7 @@ void app_main(void) {
         // Considera si quieres detener la ejecución o intentar continuar
     }
 
-    // 3. Inicializar el módulo BLE
+    // 3. Inicializar el módulo BLE (tu servicio de comandos)
     ble_init();
     ESP_LOGI(TAG_MAIN, "BLE inicializado. Esperando conexión...");
 
@@ -43,23 +44,21 @@ void app_main(void) {
     while (1) {
         // Esperar por comandos de la cola (bloqueante hasta que haya algo)
         if (xQueueReceive(ble_command_queue, &received_command, portMAX_DELAY) == pdTRUE) {
-            ESP_LOGI(TAG_MAIN, "Comando recibido: %s", received_command.command);
+            ESP_LOGI(TAG_MAIN, "Comando recibido para procesamiento: %s", received_command.command);
 
-            // Aquí procesamos el comando
-            // Podrías usar un switch-case o if-else if para diferentes comandos
-            // Ejemplo: "WRITE_REG <reg> <value>" o "READ_REG <reg>"
+            // Aquí procesas el comando recibido y actúas sobre el DRV2605
+            // Luego, envías una respuesta de vuelta al cliente BLE.
 
             // Ejemplo de procesamiento de comando "READ_REG <registro>"
             if (strncmp(received_command.command, "READ_REG", 8) == 0) {
                 uint8_t reg_addr;
-                char response_str[BLE_MAX_DATA_LEN]; // Ajusta el tamaño según tu necesidad
+                char response_str[BLE_MAX_DATA_LEN];
 
-                // Parsear el registro desde el comando
                 if (sscanf(received_command.command + 9, "%hhu", &reg_addr) == 1) {
                     uint8_t value;
                     if (readRegister8(reg_addr, &value)) {
                         snprintf(response_str, sizeof(response_str), "READ_OK %02X:%02X", reg_addr, value);
-                        ESP_LOGI(TAG_MAIN, "Respuesta: %s", response_str);
+                        ESP_LOGI(TAG_MAIN, "Respuesta a comando: %s", response_str);
                     } else {
                         snprintf(response_str, sizeof(response_str), "READ_ERROR %02X", reg_addr);
                         ESP_LOGE(TAG_MAIN, "Fallo lectura de registro 0x%02X", reg_addr);
@@ -78,7 +77,7 @@ void app_main(void) {
                 if (sscanf(received_command.command + 10, "%hhu %hhu", &reg_addr, &value) == 2) {
                     if (writeRegister8(reg_addr, value)) {
                         snprintf(response_str, sizeof(response_str), "WRITE_OK %02X:%02X", reg_addr, value);
-                        ESP_LOGI(TAG_MAIN, "Respuesta: %s", response_str);
+                        ESP_LOGI(TAG_MAIN, "Respuesta a comando: %s", response_str);
                     } else {
                         snprintf(response_str, sizeof(response_str), "WRITE_ERROR %02X:%02X", reg_addr, value);
                         ESP_LOGE(TAG_MAIN, "Fallo escritura de registro 0x%02X con valor 0x%02X", reg_addr, value);

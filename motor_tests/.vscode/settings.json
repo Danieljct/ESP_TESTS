@@ -5,9 +5,21 @@
   "idf.openOcdConfigs": [
     "board/esp32s3-builtin.cfg"
   ],
-  "idf.portWin": "COM1",
+  "idf.portWin": "COM9",
   "idf.toolsPathWin": "E:\\.espressif",
   "idf.customExtraVars": {
     "IDF_TARGET": "esp32s3"
-  }
+  },
+  "files.associations": {
+    "*.ino": "arduino-output",
+    "esp_gap_ble_api.h": "c",
+    "ble.h": "c",
+    "esp_bt_defs.h": "c",
+    "drv2605driver.h": "c",
+    "esp_log.h": "c",
+    "freertos.h": "c",
+    "esp_bt_main.h": "c",
+    "esp_gatts_api.h": "c"
+  },
+  "idf.flashType": "UART"
 }
