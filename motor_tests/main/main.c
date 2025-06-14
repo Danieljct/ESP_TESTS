@@ -39,7 +39,7 @@ void app_main(void) {
     ble_init();
     ESP_LOGI(TAG_MAIN, "BLE inicializado. Esperando conexión...");
 SIGNAL_init(PWM_FREQ);
-SIGNAL_select(SIGNAL_SIN23HZ);
+SIGNAL_select(SIGNAL_AM_MODULATED);
 SIGNAL_start();
     // Bucle principal para procesar comandos BLE
     ble_command_t received_command;

@@ -19,7 +19,8 @@
     "esp_log.h": "c",
     "freertos.h": "c",
     "esp_bt_main.h": "c",
-    "esp_gatts_api.h": "c"
+    "esp_gatts_api.h": "c",
+    "ledc.h": "c"
   },
   "idf.flashType": "UART"
 }
