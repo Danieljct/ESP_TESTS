@@ -1,0 +1,76 @@
+Información configurable por I2C (LTC3555/LTC3555-X)
+
+El LTC3555/LTC3555-X ofrece las siguientes capacidades configurables a través de su puerto I2C, con asignaciones de bits específicas en los registros de control:
+
+**Mapeo del Puerto Serie I2C (Tabla 2):**
+
+* **Tensión del Regulador de Conmutación 2**: Configurable mediante los bits A7-A4. Consulte la Tabla 4 para los valores de tensión.
+* **Tensión del Regulador de Conmutación 3**: Configurable mediante los bits A3-A0. Consulte la Tabla 4 para los valores de tensión.
+* **Deshabilitar Cargador de Batería**: Configurable mediante el bit B7.
+* **Modos del Regulador de Conmutación**: Configurable mediante los bits B6-B5. Consulte la Tabla 5 para los modos disponibles.
+* **Habilitar Regulador 1**: Configurable mediante el bit B4.
+* **Habilitar Regulador 2**: Configurable mediante el bit B3.
+* **Habilitar Regulador 3**: Configurable mediante el bit B2.
+* **Límite de Corriente de Entrada**: Configurable mediante los bits B1-B0. Consulte la Tabla 3 para los ajustes de límite de corriente USB.
+
+**Tabla 3. Ajustes de Límite de Corriente USB:**
+(Bits B1 (ILIM1) y B0 (ILIM0))
+* **0 0**: Modo 1x (Límite USB 100mA)
+* **0 1**: Modo 10x (Límite de pared 1A)
+* **1 0**: Suspender
+* **1 1**: Modo 5x (Límite USB 500mA)
+
+**Tabla 4. Tensión Servo del Regulador de Conmutación:**
+(Bits A7-A4 para Regulador 2, A3-A0 para Regulador 3)
+* **0 0 0 0**: 0.425V
+* **0 0 0 1**: 0.450V
+* **0 0 1 0**: 0.475V
+* **0 0 1 1**: 0.500V
+* **0 1 0 0**: 0.525V
+* **0 1 0 1**: 0.550V
+* **0 1 1 0**: 0.575V
+* **0 1 1 1**: 0.600V
+* **1 0 0 0**: 0.625V
+* **1 0 0 1**: 0.650V
+* **1 0 1 0**: 0.675V
+* **1 0 1 1**: 0.700V
+* **1 1 0 0**: 0.725V
+* **1 1 0 1**: 0.750V
+* **1 1 1 0**: 0.775V
+* **1 1 1 1**: 0.800V
+
+**Tabla 5. Modos del Regulador de Conmutación de Propósito General:**
+(Bits B6 (SDA)* y B5 (SCL)*)
+* **0 0**: Salto de Pulso (Pulse Skip)
+* **0 1**: Operación en Modo Ráfaga Forzada (Forced Burst Mode Operation)
+* **1 0**: Modo LDO
+* **1 1**: Operación en Modo Ráfaga (Burst Mode Operation)
+    *Nota: SDA y SCL asumen este contexto solo cuando DVCC = 0V.
+
+**Otras Capacidades Configurables por I2C Mencionadas en el Datasheet:**
+* Control general del producto.
+
+**Características Eléctricas del Puerto I2C:**
+* **Tensión de alimentación de entrada (DVCC)**: 1.6V (MÍN) a 5.5V (MÁX).
+* **Corriente quiescente de DVCC (IDVCC)**: 0.5µA (TÍP) cuando SCL/SDA = 0kHz.
+* **Bloqueo por subtensión de DVCC (VDVCC_UVLO)**: 1.0V (TÍP).
+* **Dirección I2C (ADDRESS)**: 0001 001 [0].
+* **Umbral de entrada alta (VIH) SDA, SCL**: 70% DVCC (TÍP).
+* **Umbral de entrada baja (VIL) SDA, SCL**: 30% DVCC (TÍP).
+* **Corriente de Pull-Down (IPD2) SDA, SCL**: 2µA (TÍP).
+* **Salida digital baja (VOL) (SDA)**: 0.4V (MÁX) para IPULLUP=3mA.
+* **Frecuencia de funcionamiento del reloj (fSCL)**: 400kHz (TÍP).
+
+**Parámetros de Temporización del Puerto I2C:**
+* **Tiempo libre de bus entre condición de parada e inicio (tBUF)**: 1.3µs (TÍP).
+* **Tiempo de retención después de la condición de inicio (repetida) (HD_STA)**: 0.6µs (TÍP).
+* **Tiempo de configuración de la condición de inicio repetida (SU_STA)**: 0.6µs (TÍP).
+* **Tiempo de condición de parada (tsu_STD)**: 0.6µs (MÍN).
+* **Tiempo de retención de datos (salida) (HD_DAT(OUT))**: 225ns (TÍP).
+* **Tiempo de retención de datos (entrada) (HD_DAT(IN))**: 0ns (MÍN) a 900ns (MÁX).
+* **Tiempo de configuración de datos (tSU)**: 100ns (MÍN).
+* **Período de reloj bajo (tLOW)**: 1.3µs (MÍN).
+* **Período de reloj alto (tHIGH)**: 0.6µs (MÍN).
+* **Tiempo de caída de datos del reloj (tf)**: 20ns (MÍN) a 300ns (MÁX).
+* **Tiempo de subida de datos del reloj (tr)**: 20ns (MÍN) a 300ns (MÁX).
+* **Tiempo de supresión de picos (tsp)**: 50ns (MÁX).
